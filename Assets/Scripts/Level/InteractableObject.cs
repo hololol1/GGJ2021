@@ -20,4 +20,16 @@ public class InteractableObject : MonoBehaviour
             return;
         }
     }
+
+    public virtual void StopInteract(GameObject interactor)
+    {
+        if(this.interactor == interactor)
+        { 
+            this.interactor = null;
+        }
+        else
+        {
+            return;
+        }
+    }
 }

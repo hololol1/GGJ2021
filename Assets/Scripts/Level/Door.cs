@@ -20,23 +20,30 @@ public class Door : InteractableObject
     // Update is called once per frame
     void Update()
     {
-        if (!triggered)
-        {
-            for (int i = 0; i < boxes.Length; ++i)
-            {
-                if (!boxes[i].Scanned)
-                    return;
-            }
 
-            Open();
-            triggered = true;
+        for (int i = 0; i < boxes.Length; ++i)
+        {
+            if (!boxes[i].Scanned)
+            {
+                Close();
+                return;
+            }
         }
+
+        Open();
     }
 
     private void Open()
     {
         Debug.Log("OPEN");
-        open = !open;
+        open = true;
+        anim.SetBool("open", open);
+    }
+
+    private void Close()
+    {
+        Debug.Log("CLOSE");
+        open = false;
         anim.SetBool("open", open);
     }
 
