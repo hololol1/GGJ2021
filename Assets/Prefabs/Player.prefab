@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 831520441}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -307,7 +307,7 @@ MonoBehaviour:
   maxReflectionCount: 5
   Head: {fileID: 3131796656402290872}
   LaserOrigin: {fileID: 2511247971600229651}
-  LaserExplosion: {fileID: 717606420194371859}
+  LaserImpact: {fileID: 717606420194371859}
 --- !u!1001 &7799561867042946547
 PrefabInstance:
   m_ObjectHideFlags: 0
