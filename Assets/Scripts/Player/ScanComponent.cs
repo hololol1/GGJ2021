@@ -60,7 +60,8 @@ public class ScanComponent : MonoBehaviour
         {
             GameObject go = hit.collider.gameObject;
             Vector3 endPos = hit.point;
-            laserLine.SetPosition(1, endPos);
+			Vector3 dir = (this.transform.position - endPos).normalized;
+			laserLine.SetPosition(1, endPos);
             InteractableObject io = go.GetComponent<InteractableObject>();
             if(io != null)
             {
@@ -73,7 +74,7 @@ public class ScanComponent : MonoBehaviour
 
             if (go.tag == "Reflection")
             {
-                DrawReflectionPattern(endPos, Vector3.Reflect(endPos, hit.normal), 2);
+                DrawReflectionPattern(endPos, Vector3.Reflect(-dir, hit.normal), 2);
             }
         }
         else

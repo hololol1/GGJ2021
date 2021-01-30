@@ -49,8 +49,10 @@ public class Door : InteractableObject
 
     public override void Interact(GameObject interactor)
     {
-        base.Interact(interactor);
-
-        Open();
+        if (interactable)
+        {
+            base.Interact(interactor);
+            Open();
+        }
     }
 }
