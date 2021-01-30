@@ -13,7 +13,7 @@ public class ScanComponent : MonoBehaviour
 
     public GameObject Head;
     public Transform LaserOrigin;
-    public Transform LaserExplosion;
+    public Transform LaserImpact;
 
     // Start is called before the first frame update
     void Start()
@@ -41,7 +41,7 @@ public class ScanComponent : MonoBehaviour
             Head.transform.GetChild(0).gameObject.SetActive(true);
             Head.transform.GetChild(1).gameObject.SetActive(false);
             Head.transform.GetChild(2).gameObject.SetActive(false);
-            LaserExplosion.gameObject.SetActive(false);
+            LaserImpact.gameObject.SetActive(false);
         }
     }
 
@@ -75,15 +75,15 @@ public class ScanComponent : MonoBehaviour
             }
             else
             {
-                LaserExplosion.position = hit.point;
-                LaserExplosion.gameObject.SetActive(true);
+                LaserImpact.position = hit.point;
+                LaserImpact.gameObject.SetActive(true);
             }
         }
         else
         {
             laserLine.positionCount = 2;
             laserLine.SetPosition(1, (mousePos - startPos) * maxRange);
-            LaserExplosion.gameObject.SetActive(false);
+            LaserImpact.gameObject.SetActive(false);
         }
     }
 
@@ -117,15 +117,15 @@ public class ScanComponent : MonoBehaviour
             }
             else
             {
-                LaserExplosion.position = hit.point;
-                LaserExplosion.gameObject.SetActive(true);
+                LaserImpact.position = hit.point;
+                LaserImpact.gameObject.SetActive(true);
             }
         }
         else
         {
             position += direction * maxRange;
             laserLine.SetPosition(reflectionNumber, position);
-            LaserExplosion.gameObject.SetActive(false);
+            LaserImpact.gameObject.SetActive(false);
         }
 
         //Debug.DrawLine(startingPosition, position, Color.blue);
