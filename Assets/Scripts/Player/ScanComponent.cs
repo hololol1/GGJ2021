@@ -54,14 +54,14 @@ public class ScanComponent : MonoBehaviour
         mousePos.z = transform.position.z;
         laserLine.SetPosition(0, startPos);
         //Debug.DrawRay(startPos, (mousePos - startPos) * maxRange, Color.green);
-        Ray laserRay = new Ray(startPos, mousePos - startPos);
+        Ray laserRay = new Ray(startPos, LaserOrigin.right);
         RaycastHit hit;
 
         if (Physics.Raycast(laserRay, out hit, maxRange))
         {
             GameObject go = hit.collider.gameObject;
             Vector3 endPos = hit.point;
-			Vector3 dir = (LaserOrigin.transform.position - endPos).normalized;
+			Vector3 dir = (startPos - endPos).normalized;
 			laserLine.SetPosition(1, endPos);
             InteractableObject io = go.GetComponent<InteractableObject>();
             if(io != null)
@@ -101,7 +101,7 @@ public class ScanComponent : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, maxRange))
         {
-            direction = Vector3.Reflect(direction, hit.normal);
+            direction = Vector3.Reflect(LaserOrigin.right, hit.normal);
             position = hit.point;
             laserLine.SetPosition(reflectionNumber, position);
             GameObject go = hit.collider.gameObject;
@@ -134,16 +134,27 @@ public class ScanComponent : MonoBehaviour
     private void UpdateHeadPosition()
     {
         Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Vector3 startPos = Head.transform.transform.position;
+        Vector3 startPos = Head.transform.position;
         Vector3 mousePos = mouseRay.GetPoint(distance);
-        Vector3 targetPos = (mousePos - startPos);
-        print(targetPos);
+        mousePos.z = startPos.z;
+        //Vector3 targetPos = (mousePos - startPos);
+        //Debug.DrawLine(LaserOrigin.position, mousePos);
 
-        // Get Angle in Radians
-        float AngleRad = Mathf.Atan2(targetPos.y - Head.transform.position.y, targetPos.x - Head.transform.position.x);
-        // Get Angle in Degrees
-        float AngleDeg = (180 / Mathf.PI) * AngleRad;
-        // Rotate Object
-        Head.transform.rotation = Quaternion.Euler(0, 0, AngleDeg);
+        //// Get Angle in Radians
+        //float AngleRad = Mathf.Atan2(targetPos.y - Head.transform.position.y, targetPos.x - Head.transform.position.x);
+        //// Get Angle in Degrees
+        //float AngleDeg = (180 / Mathf.PI) * AngleRad;
+        //// Rotate Object
+        //Head.transform.rotation = Quaternion.Euler(0, 0, AngleDeg);
+
+        mousePos = Input.mousePosition;
+        mousePos.z = startPos.z; //The distance between the camera and object
+        Vector3 targetPos = Camera.main.WorldToScreenPoint(startPos);
+        mousePos.x = mousePos.x - targetPos.x;
+        mousePos.y = mousePos.y - targetPos.y;
+        Debug.DrawLine(Head.transform.position, mousePos);
+        Debug.DrawLine(startPos, mousePos, Color.red);
+        float angle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
+        Head.transform.rotation = Quaternion.Euler(new Vector3(0, 0, (angle - 11.5f)));
     }
 }
