@@ -7,6 +7,7 @@ public class LevelTrigger : MonoBehaviour
 {
     private Collider coll;
     public int levelNumber = 0;
+    public float transitionTime = 1.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,7 +25,7 @@ public class LevelTrigger : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            GameManager.Instance.ChangeLevel(levelNumber);
+            GameManager.Instance.ChangeLevel(levelNumber, transitionTime);
         }
     }
 }

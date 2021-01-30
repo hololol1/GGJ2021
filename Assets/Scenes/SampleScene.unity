@@ -879,6 +879,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelNumber: 2
+  transitionTime: 1
 --- !u!1 &420535259
 GameObject:
   m_ObjectHideFlags: 0
@@ -2101,7 +2102,6 @@ MonoBehaviour:
   - {fileID: 1575201320}
   - {fileID: 1575948747}
   - {fileID: 1256079123}
-  transitionTime: 1
 --- !u!1 &782430435
 GameObject:
   m_ObjectHideFlags: 0
@@ -2160,6 +2160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelNumber: 1
+  transitionTime: 100
 --- !u!1 &844309828
 GameObject:
   m_ObjectHideFlags: 0
@@ -3142,6 +3143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelNumber: 3
+  transitionTime: 1
 --- !u!1 &1413475626
 GameObject:
   m_ObjectHideFlags: 0
