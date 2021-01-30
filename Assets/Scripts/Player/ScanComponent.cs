@@ -28,7 +28,7 @@ public class ScanComponent : MonoBehaviour
         }
         else
         {
-            //laserLine.enabled = false;
+            laserLine.enabled = false;
         }
     }
 
