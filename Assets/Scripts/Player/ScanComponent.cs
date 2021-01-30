@@ -7,11 +7,13 @@ public class ScanComponent : MonoBehaviour
     public LayerMask reflectionLayer;
     private LineRenderer laserLine;
     private float distance = 5.0f;
-    
+
     public float maxRange = 20.0f;
     public int maxReflectionCount = 5;
+    
 
     public GameObject Head;
+    public Animator headAnim;
     public Transform LaserOrigin;
     public Transform LaserImpact;
 
@@ -30,16 +32,17 @@ public class ScanComponent : MonoBehaviour
         if(Input.GetButton("Fire1"))
         {
             Fire();
-            Head.transform.GetChild(0).gameObject.SetActive(false);
-            Head.transform.GetChild(1).gameObject.SetActive(true);
+            headAnim.SetBool("isLasering", true);
+            //Head.transform.GetChild(0).gameObject.SetActive(false);
+            //Head.transform.GetChild(1).gameObject.SetActive(true);
             Head.transform.GetChild(2).gameObject.SetActive(true);
         }
         else
         {
             laserLine.enabled = false;
-
-            Head.transform.GetChild(0).gameObject.SetActive(true);
-            Head.transform.GetChild(1).gameObject.SetActive(false);
+            headAnim.SetBool("isLasering", false);
+            //Head.transform.GetChild(0).gameObject.SetActive(true);
+            //Head.transform.GetChild(1).gameObject.SetActive(false);
             Head.transform.GetChild(2).gameObject.SetActive(false);
             LaserImpact.gameObject.SetActive(false);
         }
