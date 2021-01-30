@@ -7,19 +7,26 @@ public class ScanComponent : MonoBehaviour
     public LayerMask reflectionLayer;
     private LineRenderer laserLine;
     private float distance = 5.0f;
-    
+
     public float maxRange = 20.0f;
     public int maxReflectionCount = 5;
+    
 
     public GameObject Head;
+    public Animator headAnim;
     public Transform LaserOrigin;
     public Transform LaserImpact;
+
+    public float minBlinkTime = 1.0f;
+    public float maxBlinkTime = 10.0f;
+    private float blinkTimer = 0.0f;
 
     // Start is called before the first frame update
     void Start()
     {
         distance = Vector3.Distance(Camera.main.transform.position, transform.position);
         laserLine = GetComponent<LineRenderer>();
+        blinkTimer = Random.Range(minBlinkTime, maxBlinkTime);
     }
 
     // Update is called once per frame
@@ -30,18 +37,23 @@ public class ScanComponent : MonoBehaviour
         if(Input.GetButton("Fire1"))
         {
             Fire();
-            Head.transform.GetChild(0).gameObject.SetActive(false);
-            Head.transform.GetChild(1).gameObject.SetActive(true);
+            headAnim.SetBool("isLasering", true);
             Head.transform.GetChild(2).gameObject.SetActive(true);
+            blinkTimer = Random.Range(minBlinkTime, maxBlinkTime);
         }
         else
         {
+            blinkTimer -= Time.deltaTime;   
             laserLine.enabled = false;
-
-            Head.transform.GetChild(0).gameObject.SetActive(true);
-            Head.transform.GetChild(1).gameObject.SetActive(false);
+            headAnim.SetBool("isLasering", false);
             Head.transform.GetChild(2).gameObject.SetActive(false);
             LaserImpact.gameObject.SetActive(false);
+        }
+
+        if(blinkTimer <= 0.0f)
+        {
+            headAnim.SetTrigger("blink");
+            blinkTimer = Random.Range(minBlinkTime, maxBlinkTime);
         }
     }
 
@@ -101,7 +113,7 @@ public class ScanComponent : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, maxRange))
         {
-            direction = Vector3.Reflect(LaserOrigin.right, hit.normal);
+            direction = Vector3.Reflect(direction, hit.normal);
             position = hit.point;
             laserLine.SetPosition(reflectionNumber, position);
             GameObject go = hit.collider.gameObject;
