@@ -11,6 +11,8 @@ public class ScanComponent : MonoBehaviour
     public float maxRange = 20.0f;
     public int maxReflectionCount = 5;
 
+    public GameObject Head;
+
     private List<InteractableObject> iObjects;
 
     // Start is called before the first frame update
@@ -27,6 +29,8 @@ public class ScanComponent : MonoBehaviour
         if(Input.GetButton("Fire1"))
         {
             Fire();
+            Head.transform.GetChild(0).gameObject.SetActive(false);
+            Head.transform.GetChild(1).gameObject.SetActive(true);
         }
         else
         {
@@ -41,6 +45,9 @@ public class ScanComponent : MonoBehaviour
             }
 
             laserLine.enabled = false;
+
+            Head.transform.GetChild(0).gameObject.SetActive(true);
+            Head.transform.GetChild(1).gameObject.SetActive(false);
         }
     }
 
