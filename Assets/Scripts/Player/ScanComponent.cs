@@ -17,11 +17,16 @@ public class ScanComponent : MonoBehaviour
     public Transform LaserOrigin;
     public Transform LaserImpact;
 
+    public float minBlinkTime = 1.0f;
+    public float maxBlinkTime = 10.0f;
+    private float blinkTimer = 0.0f;
+
     // Start is called before the first frame update
     void Start()
     {
         distance = Vector3.Distance(Camera.main.transform.position, transform.position);
         laserLine = GetComponent<LineRenderer>();
+        blinkTimer = Random.Range(minBlinkTime, maxBlinkTime);
     }
 
     // Update is called once per frame
@@ -33,18 +38,22 @@ public class ScanComponent : MonoBehaviour
         {
             Fire();
             headAnim.SetBool("isLasering", true);
-            //Head.transform.GetChild(0).gameObject.SetActive(false);
-            //Head.transform.GetChild(1).gameObject.SetActive(true);
             Head.transform.GetChild(2).gameObject.SetActive(true);
+            blinkTimer = Random.Range(minBlinkTime, maxBlinkTime);
         }
         else
         {
+            blinkTimer -= Time.deltaTime;   
             laserLine.enabled = false;
             headAnim.SetBool("isLasering", false);
-            //Head.transform.GetChild(0).gameObject.SetActive(true);
-            //Head.transform.GetChild(1).gameObject.SetActive(false);
             Head.transform.GetChild(2).gameObject.SetActive(false);
             LaserImpact.gameObject.SetActive(false);
+        }
+
+        if(blinkTimer <= 0.0f)
+        {
+            headAnim.SetTrigger("blink");
+            blinkTimer = Random.Range(minBlinkTime, maxBlinkTime);
         }
     }
 

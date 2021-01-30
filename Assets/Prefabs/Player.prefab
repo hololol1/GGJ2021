@@ -28,7 +28,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2323207441047421442}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -10}
 --- !u!1 &7799561866378776391
 GameObject:
@@ -294,8 +294,11 @@ MonoBehaviour:
   maxRange: 20
   maxReflectionCount: 5
   Head: {fileID: 3131796656402290872}
+  headAnim: {fileID: 5855226635680345964}
   LaserOrigin: {fileID: 2511247971600229651}
   LaserImpact: {fileID: 717606420194371859}
+  minBlinkTime: 1
+  maxBlinkTime: 10
 --- !u!1001 &7799561867042946547
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -538,6 +541,11 @@ GameObject:
 --- !u!4 &2323207441047421442 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5476426531250969165, guid: c0b3be56deee4584c8f4b986786b6216, type: 3}
+  m_PrefabInstance: {fileID: 7799561867811100751}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &5855226635680345964 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4430536717680899875, guid: c0b3be56deee4584c8f4b986786b6216, type: 3}
   m_PrefabInstance: {fileID: 7799561867811100751}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7799561867932179219
