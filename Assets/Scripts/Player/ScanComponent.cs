@@ -16,7 +16,6 @@ public class ScanComponent : MonoBehaviour
     {
         distance = Vector3.Distance(Camera.main.transform.position, transform.position);
         laserLine = GetComponent<LineRenderer>();
-        //laserLine.enabled = false;
     }
 
     // Update is called once per frame
@@ -35,12 +34,13 @@ public class ScanComponent : MonoBehaviour
     private void Fire()
     {
         laserLine.enabled = true;
-        Vector3 startPos = transform.position;
-        laserLine.SetPosition(0, startPos);
-        
         Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Debug.DrawRay(startPos, (mouseRay.GetPoint(distance) - startPos) * maxRange, Color.green);
-        Ray laserRay = new Ray(startPos, mouseRay.GetPoint(distance) - startPos);
+        Vector3 startPos = transform.position;
+        Vector3 mousePos = mouseRay.GetPoint(distance);
+        mousePos.z = transform.position.z;
+        laserLine.SetPosition(0, startPos);
+        //Debug.DrawRay(startPos, (mousePos - startPos) * maxRange, Color.green);
+        Ray laserRay = new Ray(startPos, mousePos - startPos);
         RaycastHit hit;
 
         if (Physics.Raycast(laserRay, out hit, maxRange))
@@ -55,7 +55,7 @@ public class ScanComponent : MonoBehaviour
         else
         {
             laserLine.positionCount = 2;
-            laserLine.SetPosition(1, (mouseRay.GetPoint(distance) - startPos) * maxRange);
+            laserLine.SetPosition(1, (mousePos - startPos) * maxRange);
         }
     }
 
@@ -88,13 +88,6 @@ public class ScanComponent : MonoBehaviour
             laserLine.SetPosition(reflectionNumber, position);
         }
 
-        //Gizmos.color = Color.yellow;
-        //Gizmos.DrawLine(startingPosition, position);
-
-        Debug.DrawLine(startingPosition, position, Color.blue);
-
-        
-
-
+        //Debug.DrawLine(startingPosition, position, Color.blue);
     }
 }
