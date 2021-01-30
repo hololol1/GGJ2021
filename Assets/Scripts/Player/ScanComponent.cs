@@ -13,15 +13,13 @@ public class ScanComponent : MonoBehaviour
 
     public GameObject Head;
     public Transform LaserOrigin;
-
-    private List<InteractableObject> iObjects;
+    public Transform LaserExplosion;
 
     // Start is called before the first frame update
     void Start()
     {
         distance = Vector3.Distance(Camera.main.transform.position, transform.position);
         laserLine = GetComponent<LineRenderer>();
-        iObjects = new List<InteractableObject>();
     }
 
     // Update is called once per frame
@@ -38,21 +36,12 @@ public class ScanComponent : MonoBehaviour
         }
         else
         {
-            if (iObjects.Count > 0)
-            {
-                for (int i = 0; i < iObjects.Count; ++i)
-                {
-                    iObjects[i].StopInteract(this.gameObject);
-                }
-
-                iObjects.Clear();
-            }
-
             laserLine.enabled = false;
 
             Head.transform.GetChild(0).gameObject.SetActive(true);
             Head.transform.GetChild(1).gameObject.SetActive(false);
             Head.transform.GetChild(2).gameObject.SetActive(false);
+            LaserExplosion.gameObject.SetActive(false);
         }
     }
 
@@ -77,22 +66,24 @@ public class ScanComponent : MonoBehaviour
             InteractableObject io = go.GetComponent<InteractableObject>();
             if(io != null)
             {
-                if (!iObjects.Contains(io))
-                {
-                    iObjects.Add(io);
-                    io.Interact(this.gameObject);
-                }
+                io.Interact(this.gameObject);
             }
 
             if (go.tag == "Reflection")
             {
                 DrawReflectionPattern(endPos, Vector3.Reflect(-dir, hit.normal), 2);
             }
+            else
+            {
+                LaserExplosion.position = hit.point;
+                LaserExplosion.gameObject.SetActive(true);
+            }
         }
         else
         {
             laserLine.positionCount = 2;
             laserLine.SetPosition(1, (mousePos - startPos) * maxRange);
+            LaserExplosion.gameObject.SetActive(false);
         }
     }
 
@@ -108,7 +99,7 @@ public class ScanComponent : MonoBehaviour
 
         Ray ray = new Ray(position, direction);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, maxRange, reflectionLayer))
+        if (Physics.Raycast(ray, out hit, maxRange))
         {
             direction = Vector3.Reflect(direction, hit.normal);
             position = hit.point;
@@ -117,22 +108,24 @@ public class ScanComponent : MonoBehaviour
             InteractableObject io = go.GetComponent<InteractableObject>();
             if (io != null)
             {
-                if (!iObjects.Contains(io))
-                {
-                    iObjects.Add(io);
-                    io.Interact(this.gameObject);
-                }
+                io.Interact(this.gameObject);
             }
 
             if (hit.collider.gameObject.tag == "Reflection")
             {
                 DrawReflectionPattern(position, direction, reflectionNumber + 1);
             }
+            else
+            {
+                LaserExplosion.position = hit.point;
+                LaserExplosion.gameObject.SetActive(true);
+            }
         }
         else
         {
             position += direction * maxRange;
             laserLine.SetPosition(reflectionNumber, position);
+            LaserExplosion.gameObject.SetActive(false);
         }
 
         //Debug.DrawLine(startingPosition, position, Color.blue);
