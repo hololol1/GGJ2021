@@ -113,7 +113,7 @@ public class ScanComponent : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, maxRange))
         {
-            direction = Vector3.Reflect(LaserOrigin.right, hit.normal);
+            direction = Vector3.Reflect(direction, hit.normal);
             position = hit.point;
             laserLine.SetPosition(reflectionNumber, position);
             GameObject go = hit.collider.gameObject;
