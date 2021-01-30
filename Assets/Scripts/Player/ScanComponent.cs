@@ -12,6 +12,7 @@ public class ScanComponent : MonoBehaviour
     public int maxReflectionCount = 5;
 
     public GameObject Head;
+    public Transform LaserOrigin;
 
     private List<InteractableObject> iObjects;
 
@@ -26,11 +27,14 @@ public class ScanComponent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        UpdateHeadPosition();
+
         if(Input.GetButton("Fire1"))
         {
             Fire();
             Head.transform.GetChild(0).gameObject.SetActive(false);
             Head.transform.GetChild(1).gameObject.SetActive(true);
+            Head.transform.GetChild(2).gameObject.SetActive(true);
         }
         else
         {
@@ -48,6 +52,7 @@ public class ScanComponent : MonoBehaviour
 
             Head.transform.GetChild(0).gameObject.SetActive(true);
             Head.transform.GetChild(1).gameObject.SetActive(false);
+            Head.transform.GetChild(2).gameObject.SetActive(false);
         }
     }
 
@@ -55,7 +60,7 @@ public class ScanComponent : MonoBehaviour
     {
         laserLine.enabled = true;
         Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Vector3 startPos = transform.position;
+        Vector3 startPos = LaserOrigin.transform.position;
         Vector3 mousePos = mouseRay.GetPoint(distance);
         mousePos.z = transform.position.z;
         laserLine.SetPosition(0, startPos);
@@ -67,7 +72,7 @@ public class ScanComponent : MonoBehaviour
         {
             GameObject go = hit.collider.gameObject;
             Vector3 endPos = hit.point;
-			Vector3 dir = (this.transform.position - endPos).normalized;
+			Vector3 dir = (LaserOrigin.transform.position - endPos).normalized;
 			laserLine.SetPosition(1, endPos);
             InteractableObject io = go.GetComponent<InteractableObject>();
             if(io != null)
@@ -131,5 +136,21 @@ public class ScanComponent : MonoBehaviour
         }
 
         //Debug.DrawLine(startingPosition, position, Color.blue);
+    }
+
+    private void UpdateHeadPosition()
+    {
+        Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Vector3 startPos = Head.transform.transform.position;
+        Vector3 mousePos = mouseRay.GetPoint(distance);
+        Vector3 targetPos = (mousePos - startPos);
+        print(targetPos);
+
+        // Get Angle in Radians
+        float AngleRad = Mathf.Atan2(targetPos.y - Head.transform.position.y, targetPos.x - Head.transform.position.x);
+        // Get Angle in Degrees
+        float AngleDeg = (180 / Mathf.PI) * AngleRad;
+        // Rotate Object
+        Head.transform.rotation = Quaternion.Euler(0, 0, AngleDeg);
     }
 }
