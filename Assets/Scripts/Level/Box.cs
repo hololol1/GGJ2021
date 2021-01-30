@@ -9,9 +9,19 @@ public class Box : InteractableObject
 
     public bool Scanned { get { return m_scanned; } }
 
+    void Update()
+    {
+    }
+
     public override void Interact(GameObject interactor)
     {
         base.Interact(interactor);
         m_scanned = true;
+    }
+
+    public override void StopInteract(GameObject interactor)
+    {
+        base.StopInteract(interactor);
+        m_scanned = false;
     }
 }

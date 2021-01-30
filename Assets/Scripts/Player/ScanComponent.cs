@@ -11,11 +11,14 @@ public class ScanComponent : MonoBehaviour
     public float maxRange = 20.0f;
     public int maxReflectionCount = 5;
 
+    private List<InteractableObject> iObjects;
+
     // Start is called before the first frame update
     void Start()
     {
         distance = Vector3.Distance(Camera.main.transform.position, transform.position);
         laserLine = GetComponent<LineRenderer>();
+        iObjects = new List<InteractableObject>();
     }
 
     // Update is called once per frame
@@ -27,6 +30,16 @@ public class ScanComponent : MonoBehaviour
         }
         else
         {
+            if (iObjects.Count > 0)
+            {
+                for (int i = 0; i < iObjects.Count; ++i)
+                {
+                    iObjects[i].StopInteract(this.gameObject);
+                }
+
+                iObjects.Clear();
+            }
+
             laserLine.enabled = false;
         }
     }
@@ -51,7 +64,11 @@ public class ScanComponent : MonoBehaviour
             InteractableObject io = go.GetComponent<InteractableObject>();
             if(io != null)
             {
-                io.Interact(this.gameObject);
+                if (!iObjects.Contains(io))
+                {
+                    iObjects.Add(io);
+                    io.Interact(this.gameObject);
+                }
             }
 
             if (go.tag == "Reflection")
@@ -87,7 +104,11 @@ public class ScanComponent : MonoBehaviour
             InteractableObject io = go.GetComponent<InteractableObject>();
             if (io != null)
             {
-                io.Interact(this.gameObject);
+                if (!iObjects.Contains(io))
+                {
+                    iObjects.Add(io);
+                    io.Interact(this.gameObject);
+                }
             }
 
             if (hit.collider.gameObject.tag == "Reflection")
