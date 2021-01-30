@@ -22,7 +22,8 @@ public class CharacterMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        grounded = Physics.OverlapSphere(groundPosition.position, 0.25f, groundLayer).Length > 0;
+        //grounded = Physics.OverlapSphere(groundPosition.position, 0.25f, groundLayer).Length > 0;
+        grounded = Physics.OverlapBox(groundPosition.position, new Vector3(1.0f, 0.15f, 1.0f), Quaternion.identity, groundLayer).Length > 0;
         Debug.DrawLine(transform.position, transform.position + new Vector3(0.0f, -0.25f, 0.0f), Color.red);
         Vector3 direction = Vector3.zero;
         float d = Input.GetAxisRaw("Horizontal");

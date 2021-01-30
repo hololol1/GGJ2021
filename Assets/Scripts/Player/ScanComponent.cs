@@ -45,9 +45,16 @@ public class ScanComponent : MonoBehaviour
 
         if (Physics.Raycast(laserRay, out hit, maxRange))
         {
+            GameObject go = hit.collider.gameObject;
             Vector3 endPos = hit.point;
             laserLine.SetPosition(1, endPos);
-            if(hit.collider.gameObject.tag == "Reflection")
+            InteractableObject io = go.GetComponent<InteractableObject>();
+            if(io != null)
+            {
+                io.Interact(this.gameObject);
+            }
+
+            if (go.tag == "Reflection")
             {
                 DrawReflectionPattern(endPos, Vector3.Reflect(endPos, hit.normal), 2);
             }
@@ -76,7 +83,13 @@ public class ScanComponent : MonoBehaviour
             direction = Vector3.Reflect(direction, hit.normal);
             position = hit.point;
             laserLine.SetPosition(reflectionNumber, position);
-            
+            GameObject go = hit.collider.gameObject;
+            InteractableObject io = go.GetComponent<InteractableObject>();
+            if (io != null)
+            {
+                io.Interact(this.gameObject);
+            }
+
             if (hit.collider.gameObject.tag == "Reflection")
             {
                 DrawReflectionPattern(position, direction, reflectionNumber + 1);
