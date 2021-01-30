@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ScanComponent : MonoBehaviour
 {
-    public LayerMask scanLayer;
+    public LayerMask reflectionLayer;
     private LineRenderer laserLine;
     private float distance = 5.0f;
     
@@ -35,32 +35,57 @@ public class ScanComponent : MonoBehaviour
     private void Fire()
     {
         laserLine.enabled = true;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Physics.Raycast(new Ray(transform.position, Input.mousePosition - transform.position));
-        Debug.DrawRay(transform.position, (ray.GetPoint(distance) - transform.position) * maxRange, Color.green);
-        laserLine.SetPosition(0, transform.position);
-        laserLine.SetPosition(1, (ray.GetPoint(distance) - transform.position) * maxRange);
+        Vector3 startPos = transform.position;
+        laserLine.SetPosition(0, startPos);
+        
+        Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Debug.DrawRay(startPos, (mouseRay.GetPoint(distance) - startPos) * maxRange, Color.green);
+        Ray laserRay = new Ray(startPos, mouseRay.GetPoint(distance) - startPos);
+        RaycastHit hit;
+
+        if (Physics.Raycast(laserRay, out hit, maxRange))
+        {
+            Vector3 endPos = hit.point;
+            laserLine.SetPosition(1, endPos);
+            if(hit.collider.gameObject.tag == "Reflection")
+            {
+                DrawReflectionPattern(endPos, Vector3.Reflect(endPos, hit.normal), 2);
+            }
+        }
+        else
+        {
+            laserLine.positionCount = 2;
+            laserLine.SetPosition(1, (mouseRay.GetPoint(distance) - startPos) * maxRange);
+        }
     }
 
-    private void DrawReflectionPattern(Vector3 position, Vector3 direction, int reflectionsRemaining)
+    private void DrawReflectionPattern(Vector3 position, Vector3 direction, int reflectionNumber)
     {
-        if (reflectionsRemaining == 0)
+        if (reflectionNumber == maxReflectionCount)
         {
             return;
         }
 
+        laserLine.positionCount = reflectionNumber + 1;
         Vector3 startingPosition = position;
 
         Ray ray = new Ray(position, direction);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, maxRange))
+        if (Physics.Raycast(ray, out hit, maxRange, reflectionLayer))
         {
             direction = Vector3.Reflect(direction, hit.normal);
             position = hit.point;
+            laserLine.SetPosition(reflectionNumber, position);
+            
+            if (hit.collider.gameObject.tag == "Reflection")
+            {
+                DrawReflectionPattern(position, direction, reflectionNumber + 1);
+            }
         }
         else
         {
             position += direction * maxRange;
+            laserLine.SetPosition(reflectionNumber, position);
         }
 
         //Gizmos.color = Color.yellow;
@@ -68,7 +93,7 @@ public class ScanComponent : MonoBehaviour
 
         Debug.DrawLine(startingPosition, position, Color.blue);
 
-        DrawReflectionPattern(position, direction, reflectionsRemaining - 1);
+        
 
 
     }
