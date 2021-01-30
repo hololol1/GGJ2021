@@ -7,7 +7,6 @@ public class Door : InteractableObject
 {
     private Animator anim;
     public bool open = false;
-    private bool triggered = false;
 
     public Box[] boxes;
 
