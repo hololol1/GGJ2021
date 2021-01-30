@@ -24,7 +24,7 @@ public class CharacterMovement : MonoBehaviour
     {
         //grounded = Physics.OverlapSphere(groundPosition.position, 0.25f, groundLayer).Length > 0;
         grounded = Physics.OverlapBox(groundPosition.position, new Vector3(1.0f, 0.15f, 1.0f), Quaternion.identity, groundLayer).Length > 0;
-        Debug.DrawLine(transform.position, transform.position + new Vector3(0.0f, -0.25f, 0.0f), Color.red);
+        //Debug.DrawLine(transform.position, transform.position + new Vector3(0.0f, -0.25f, 0.0f), Color.red);
         Vector3 direction = Vector3.zero;
         float d = Input.GetAxisRaw("Horizontal");
         
@@ -38,9 +38,18 @@ public class CharacterMovement : MonoBehaviour
             direction = Vector3.right;
         }
 
-        transform.position = transform.position + (direction * moveSpeed * Time.deltaTime);
-        
-        if(Input.GetButtonDown("Jump") && grounded)
+        RaycastHit hit;
+        if (rb.SweepTest(transform.position + direction, out hit, 0.2f))
+        {
+            if (hit.collider.gameObject.GetComponent<MovableObject>() != null)
+                transform.position = transform.position + (direction * moveSpeed * Time.deltaTime);
+        }
+        else
+        {
+            transform.position = transform.position + (direction * moveSpeed * Time.deltaTime);
+        }
+
+        if (Input.GetButtonDown("Jump") && grounded)
         {
             rb.AddForce(Vector3.up * jumpForce);
         }
