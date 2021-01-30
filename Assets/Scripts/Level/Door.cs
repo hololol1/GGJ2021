@@ -35,14 +35,12 @@ public class Door : InteractableObject
 
     private void Open()
     {
-        Debug.Log("OPEN");
         open = true;
         anim.SetBool("open", open);
     }
 
     private void Close()
     {
-        Debug.Log("CLOSE");
         open = false;
         anim.SetBool("open", open);
     }
