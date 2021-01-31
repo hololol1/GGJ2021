@@ -6,18 +6,18 @@ using UnityEngine.SceneManagement;
 
 public class MenuButtons : MonoBehaviour
 {
-	public GameObject pauseScreen;
-	public AudioMixer audioMixer;
+	//public GameObject pauseScreen;
+	//public AudioMixer audioMixer;
 
 	private void Start()
 	{
-		audioMixer.SetFloat("musicVolume", 0);
-		audioMixer.SetFloat("gameVolume", 0);
+		//audioMixer.SetFloat("musicVolume", 0);
+		//audioMixer.SetFloat("gameVolume", 0);
 	}
 
 	public void ReturnToMenu()
 	{
-		audioMixer.SetFloat("gameVolume", 0);
+		//audioMixer.SetFloat("gameVolume", 0);
 		Time.timeScale = 1.0f;
 	}
 
