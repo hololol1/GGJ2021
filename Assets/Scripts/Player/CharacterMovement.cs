@@ -10,6 +10,10 @@ public class CharacterMovement : MonoBehaviour
     public Transform groundPosition;
 
     public ParticleSystem jumpingParticles;
+    public ParticleSystem walkingParticles;
+    public Animator faceAnimator;
+
+    private bool oneShot;
 
     public float moveSpeed = 5.0f;
     public float jumpForce = 200.0f;
@@ -57,14 +61,16 @@ public class CharacterMovement : MonoBehaviour
 			if (hit.collider.gameObject.GetComponent<MovableObject>() != null || hit.collider.gameObject.GetComponent<LevelTrigger>() != null || hit.transform.position.y < groundPosition.position.y)
 			{
 				rb.velocity = new Vector3(direction.x * moveSpeed, rb.velocity.y, 0);
-				//transform.position = transform.position + (direction * moveSpeed * Time.deltaTime);
+                //transform.position = transform.position + (direction * moveSpeed * Time.deltaTime);
+                faceAnimator.SetBool("isStruggling", true);
 			}
 		}
         else
         {
 			rb.velocity = new Vector3(direction.x * moveSpeed, rb.velocity.y, 0);
-			//transform.position = transform.position + (direction * moveSpeed * Time.deltaTime);
-		}
+            //transform.position = transform.position + (direction * moveSpeed * Time.deltaTime);
+            faceAnimator.SetBool("isStruggling", false);
+        }
 
 		if (Input.GetButtonDown("Jump") && grounded)
         {
@@ -74,5 +80,24 @@ public class CharacterMovement : MonoBehaviour
             jumpingParticles.Play();
         }
 
+        if (!grounded)
+        {
+            bool prevValue = oneShot;
+            oneShot = false;
+            if (prevValue)
+            {
+                walkingParticles.GetComponent<ParticleSystem>().Stop();
+            }
+
+        }
+        else
+        {
+            bool prevValue = oneShot;
+            oneShot = true;
+            if (!prevValue)
+            {
+                walkingParticles.GetComponent<ParticleSystem>().Play();
+            }
+        }
     }
 }

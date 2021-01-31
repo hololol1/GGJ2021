@@ -7,6 +7,9 @@ public class ScanComponent : MonoBehaviour
     public LayerMask reflectionLayer;
     private LineRenderer laserLine;
     private float distance = 5.0f;
+    private AudioSource[] audioPlayers;
+    public AudioClip laserSound;
+    private bool oneShotSound = false;
 
     public float maxRange = 20.0f;
     public int maxReflectionCount = 5;
@@ -24,6 +27,7 @@ public class ScanComponent : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        audioPlayers = GetComponents<AudioSource>();
         distance = Vector3.Distance(Camera.main.transform.position, transform.position);
         laserLine = GetComponent<LineRenderer>();
         blinkTimer = Random.Range(minBlinkTime, maxBlinkTime);
@@ -36,6 +40,13 @@ public class ScanComponent : MonoBehaviour
 
         if(Input.GetButton("Fire1") || Input.GetButton("Fire2"))
         {
+            bool prevValue = oneShotSound;
+            if (!prevValue)
+            {
+                audioPlayers[0].PlayOneShot(laserSound);
+                audioPlayers[1].enabled = true;
+            }
+            oneShotSound = true;
             Fire();
             headAnim.SetBool("isLasering", true);
             Head.transform.GetChild(2).gameObject.SetActive(true);
@@ -43,6 +54,8 @@ public class ScanComponent : MonoBehaviour
         }
         else
         {
+            audioPlayers[1].enabled = false;
+            oneShotSound = false;
             blinkTimer -= Time.deltaTime;   
             laserLine.enabled = false;
             headAnim.SetBool("isLasering", false);
