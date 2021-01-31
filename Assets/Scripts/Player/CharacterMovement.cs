@@ -39,15 +39,17 @@ public class CharacterMovement : MonoBehaviour
         }
 
         RaycastHit hit;
-        if (rb.SweepTest(transform.position + direction, out hit, 0.2f))
+        if (rb.SweepTest(direction, out hit, 0.2f))
         {
-            if (hit.collider.gameObject.GetComponent<MovableObject>() != null)
-                transform.position = transform.position + (direction * moveSpeed * Time.deltaTime);
-        }
+			if (hit.collider.gameObject.GetComponent<MovableObject>() != null || hit.collider.gameObject.GetComponent<LevelTrigger>() != null || hit.transform.position.y < groundPosition.position.y)
+				rb.velocity = new Vector3(direction.x * moveSpeed, rb.velocity.y, 0);
+					//transform.position = transform.position + (direction * moveSpeed * Time.deltaTime);
+		}
         else
         {
-            transform.position = transform.position + (direction * moveSpeed * Time.deltaTime);
-        }
+			rb.velocity = new Vector3(direction.x * moveSpeed, rb.velocity.y, 0);
+			//transform.position = transform.position + (direction * moveSpeed * Time.deltaTime);
+		}
 
         if (Input.GetButtonDown("Jump") && grounded)
         {
