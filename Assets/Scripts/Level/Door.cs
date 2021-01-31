@@ -12,7 +12,7 @@ public class Door : InteractableObject
     public AudioClip[] openCloseSounds;
     private bool isBlocked = false;
     private bool toOpen = false;
-    private float openTime = 2.0f;
+    private float openTime = 0.5f;
 
    
 
@@ -35,7 +35,7 @@ public class Door : InteractableObject
         else
         {
             toOpen = false;
-            openTime = 2.0f;
+            openTime = 0.5f;
         }
         for (int i = 0; i < boxes.Length; ++i)
         {
