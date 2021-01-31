@@ -12,6 +12,7 @@ public class CharacterMovement : MonoBehaviour
     public ParticleSystem jumpingParticles;
     public ParticleSystem walkingParticles;
     public Animator faceAnimator;
+    public Animator bodyAnimator;
 
     private bool oneShot;
 
@@ -70,11 +71,18 @@ public class CharacterMovement : MonoBehaviour
         if (d < 0.0f)
         {
             direction = Vector3.left;
+            bodyAnimator.SetBool("isWalking", true);
         }
 
         if (d > 0.0f)
         {
             direction = Vector3.right;
+            bodyAnimator.SetBool("isWalking", true);
+        }
+
+        if(d == 0.0f)
+        {
+            bodyAnimator.SetBool("isWalking", false);
         }
 
         RaycastHit hit;
@@ -91,11 +99,11 @@ public class CharacterMovement : MonoBehaviour
         {
 			rb.velocity = new Vector3(direction.x * moveSpeed, rb.velocity.y, 0);
             //transform.position = transform.position + (direction * moveSpeed * Time.deltaTime);
-            
         }
 
 		if (Input.GetButtonDown("Jump") && grounded)
         {
+            bodyAnimator.SetTrigger("jump");
             audioPlayer.clip = scannerJump[Random.Range(0, scannerJump.Length)];
             audioPlayer.Play();
             rb.AddForce(Vector3.up * jumpForce);
