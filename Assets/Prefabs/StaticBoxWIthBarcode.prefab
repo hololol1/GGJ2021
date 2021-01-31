@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3930889531269270150}
   - component: {fileID: 7604639213740003241}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: barcode0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d2c595638e2ffac46909ab7cfe5dac17, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b05ebe7ea40b9464daec30d637229c1e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -94,9 +94,10 @@ GameObject:
   - component: {fileID: 5549042240600577023}
   - component: {fileID: 7703090285847406389}
   - component: {fileID: 2462891084343002601}
-  m_Layer: 0
-  m_Name: SM_3DBox
-  m_TagString: Untagged
+  - component: {fileID: 5979163679364308795}
+  m_Layer: 6
+  m_Name: StaticBoxWIthBarcode
+  m_TagString: Reflection
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108,7 +109,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8207286667029890784}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -179,3 +180,16 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.76761806, y: 0.6809751, z: 1.0432535}
   m_Center: {x: 0.0037617385, y: 0.012938276, z: 0.01711905}
+--- !u!114 &5979163679364308795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8207286667029890784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a8fb0bdbfe7be4db0eba2b0955ef68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactable: 1
