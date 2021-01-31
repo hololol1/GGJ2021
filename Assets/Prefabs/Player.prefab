@@ -221,7 +221,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.053191125
+        value: 0.58294725
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -281,9 +281,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textures:
-  - {fileID: 2800000, guid: c77bb17b9600046488ba33e0e3ed11e0, type: 3}
-  - {fileID: 2800000, guid: 0ac94d206c53db4489e3f97cc24ef4c5, type: 3}
-  - {fileID: 2800000, guid: 5dd058dae18323f449244414fb056685, type: 3}
+  - {fileID: 2800000, guid: 1d01280345a57854d8a195d9016f06f5, type: 3}
+  - {fileID: 2800000, guid: edcbdea3aa5242943b14f157cd2c1400, type: 3}
+  - {fileID: 2800000, guid: 308c7b3c1e9fe6848a15c2343101d87a, type: 3}
   fps: 15
 --- !u!114 &831520441
 MonoBehaviour:
@@ -411,6 +411,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7799561867642163523}
     m_Modifications:
+    - target: {fileID: 1457343566060819750, guid: c0c8348b6a085a244b384b10a071b22e, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2609727347193188254, guid: c0c8348b6a085a244b384b10a071b22e, type: 3}
       propertyPath: m_Name
       value: Laser_impact
@@ -488,6 +492,10 @@ PrefabInstance:
     - target: {fileID: 5342346029147342721, guid: ab5294a02872f9b4090bb37f87203daf, type: 3}
       propertyPath: useRigidbodyForVelocity
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5342346029147342721, guid: ab5294a02872f9b4090bb37f87203daf, type: 3}
+      propertyPath: EmissionModule.rateOverDistance.scalar
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5342346029147342734, guid: ab5294a02872f9b4090bb37f87203daf, type: 3}
       propertyPath: m_Name
@@ -664,6 +672,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: laser_shooting
       objectReference: {fileID: 0}
+    - target: {fileID: 2616150681507924415, guid: b646afaed93153b4ba6480cc4ab042c8, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5243265228601994815, guid: b646afaed93153b4ba6480cc4ab042c8, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -682,15 +694,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5243265228601994815, guid: b646afaed93153b4ba6480cc4ab042c8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.887
+      value: -0.829
       objectReference: {fileID: 0}
     - target: {fileID: 5243265228601994815, guid: b646afaed93153b4ba6480cc4ab042c8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.249
+      value: 0.246
       objectReference: {fileID: 0}
     - target: {fileID: 5243265228601994815, guid: b646afaed93153b4ba6480cc4ab042c8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.069
       objectReference: {fileID: 0}
     - target: {fileID: 5243265228601994815, guid: b646afaed93153b4ba6480cc4ab042c8, type: 3}
       propertyPath: m_LocalRotation.w
