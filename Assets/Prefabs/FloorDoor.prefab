@@ -226,7 +226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71f851a25a2756a4dafc08e4e6787b4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactable: 1
+  interactable: 0
   open: 0
   boxes:
   - {fileID: 0}

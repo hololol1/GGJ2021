@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &977633992
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 977633993}
+  m_Layer: 0
+  m_Name: LaserImpactPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &977633993
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 977633992}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 717606420194371859}
+  m_Father: {fileID: 7799561867642163523}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1685204184089302935
 GameObject:
   m_ObjectHideFlags: 0
@@ -72,7 +103,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.15, z: 1}
+  m_Size: {x: 0.5, y: 0.1, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7799561867642163526
 GameObject:
@@ -111,9 +142,9 @@ Transform:
   m_Children:
   - {fileID: 7799561866378776384}
   - {fileID: 5573358202908914548}
-  - {fileID: 717606420194371859}
   - {fileID: 2746720067868384158}
   - {fileID: 7288472551960427998}
+  - {fileID: 977633993}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -311,7 +342,7 @@ MonoBehaviour:
   Head: {fileID: 3131796656402290872}
   headAnim: {fileID: 5855226635680345964}
   LaserOrigin: {fileID: 2511247971600229651}
-  LaserImpact: {fileID: 717606420194371859}
+  LaserImpact: {fileID: 977633993}
   minBlinkTime: 1
   maxBlinkTime: 10
 --- !u!82 &58467600
@@ -535,7 +566,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7274333049482684509, guid: dcb8406739664b74782bf37ee26e70f4, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7274333049482684509, guid: dcb8406739664b74782bf37ee26e70f4, type: 3}
       propertyPath: m_LocalScale.x
@@ -606,7 +637,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 7799561867642163523}
+    m_TransformParent: {fileID: 977633993}
     m_Modifications:
     - target: {fileID: 1457343566060819750, guid: c0c8348b6a085a244b384b10a071b22e, type: 3}
       propertyPath: m_SortingOrder
@@ -618,7 +649,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7334374832504526048, guid: c0c8348b6a085a244b384b10a071b22e, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7334374832504526048, guid: c0c8348b6a085a244b384b10a071b22e, type: 3}
       propertyPath: m_LocalScale.x
@@ -634,15 +665,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7334374832504526048, guid: c0c8348b6a085a244b384b10a071b22e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.04
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7334374832504526048, guid: c0c8348b6a085a244b384b10a071b22e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.9920001
+      value: 0.84
       objectReference: {fileID: 0}
     - target: {fileID: 7334374832504526048, guid: c0c8348b6a085a244b384b10a071b22e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.32
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7334374832504526048, guid: c0c8348b6a085a244b384b10a071b22e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -712,7 +743,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5342346029147342735, guid: ab5294a02872f9b4090bb37f87203daf, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5342346029147342735, guid: ab5294a02872f9b4090bb37f87203daf, type: 3}
       propertyPath: m_LocalPosition.x

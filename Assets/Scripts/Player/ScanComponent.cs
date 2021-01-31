@@ -109,6 +109,7 @@ public class ScanComponent : MonoBehaviour
             {
                 laserLine.positionCount = 2;
                 LaserImpact.position = hit.point;
+                LaserImpact.transform.rotation = Quaternion.LookRotation(Vector3.forward, hit.normal); 
                 LaserImpact.gameObject.SetActive(true);
             }
         }
@@ -151,6 +152,7 @@ public class ScanComponent : MonoBehaviour
             else
             {
                 LaserImpact.position = hit.point;
+                LaserImpact.transform.rotation = Quaternion.LookRotation(Vector3.forward, hit.normal);
                 LaserImpact.gameObject.SetActive(true);
             }
         }
