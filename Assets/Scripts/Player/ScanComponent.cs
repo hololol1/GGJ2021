@@ -48,6 +48,7 @@ public class ScanComponent : MonoBehaviour
             headAnim.SetBool("isLasering", false);
             Head.transform.GetChild(2).gameObject.SetActive(false);
             LaserImpact.gameObject.SetActive(false);
+            laserLine.positionCount = 2;
         }
 
         if(blinkTimer <= 0.0f)
@@ -87,6 +88,7 @@ public class ScanComponent : MonoBehaviour
             }
             else
             {
+                laserLine.positionCount = 2;
                 LaserImpact.position = hit.point;
                 LaserImpact.gameObject.SetActive(true);
             }
