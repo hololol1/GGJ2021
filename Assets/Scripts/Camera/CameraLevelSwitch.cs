@@ -6,7 +6,7 @@ public class CameraLevelSwitch : MonoBehaviour
 {
     // Camera Positions for each level
     public Transform[] cameraPositions;
-    public float transitionTime = 1.0f;
+    private float transitionTime = 1.0f;
     private float currentTransitionTime = 0.0f;
 
 
@@ -24,13 +24,13 @@ public class CameraLevelSwitch : MonoBehaviour
     {
         if (endPos == null)
             return;
-
         currentTransitionTime += Time.deltaTime;
         float normTime = Mathf.Clamp(currentTransitionTime / transitionTime, 0.0f, 1.0f);
+        Debug.Log(normTime);
         transform.position = Vector3.Lerp(startPos.position, endPos.position, normTime);
     }
 
-    public void GoToLevel(int level)
+    public void GoToLevel(int level, float transitionTime)
     {
         if(level > cameraPositions.Length || level < 0)
         {
@@ -47,6 +47,7 @@ public class CameraLevelSwitch : MonoBehaviour
 
         if (startPos != endPos)
         {
+            this.transitionTime = transitionTime;
             currentTransitionTime = 0.0f;
         }
     }

@@ -13,10 +13,17 @@ public class CharacterMovement : MonoBehaviour
     public float jumpForce = 200.0f;
     private bool grounded = false;
 
+    private AudioSource audioPlayer;
+    public AudioClip[] scannerJump;
+    public AudioClip scannerGrunt;
+    public AudioClip scannerBeamPrepare;
+    public AudioClip[] scannerPush;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        audioPlayer = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -39,18 +46,24 @@ public class CharacterMovement : MonoBehaviour
         }
 
         RaycastHit hit;
-        if (rb.SweepTest(transform.position + direction, out hit, 0.2f))
+        if (rb.SweepTest(direction, out hit, 0.2f))
         {
-            if (hit.collider.gameObject.GetComponent<MovableObject>() != null)
-                transform.position = transform.position + (direction * moveSpeed * Time.deltaTime);
-        }
+			if (hit.collider.gameObject.GetComponent<MovableObject>() != null || hit.collider.gameObject.GetComponent<LevelTrigger>() != null || hit.transform.position.y < groundPosition.position.y)
+			{
+				rb.velocity = new Vector3(direction.x * moveSpeed, rb.velocity.y, 0);
+				//transform.position = transform.position + (direction * moveSpeed * Time.deltaTime);
+			}
+		}
         else
         {
-            transform.position = transform.position + (direction * moveSpeed * Time.deltaTime);
-        }
+			rb.velocity = new Vector3(direction.x * moveSpeed, rb.velocity.y, 0);
+			//transform.position = transform.position + (direction * moveSpeed * Time.deltaTime);
+		}
 
-        if (Input.GetButtonDown("Jump") && grounded)
+		if (Input.GetButtonDown("Jump") && grounded)
         {
+            audioPlayer.clip = scannerJump[Random.Range(0, scannerJump.Length)];
+            audioPlayer.Play();
             rb.AddForce(Vector3.up * jumpForce);
         }
 

@@ -7,19 +7,26 @@ public class ScanComponent : MonoBehaviour
     public LayerMask reflectionLayer;
     private LineRenderer laserLine;
     private float distance = 5.0f;
-    
+
     public float maxRange = 20.0f;
     public int maxReflectionCount = 5;
+    
 
     public GameObject Head;
+    public Animator headAnim;
     public Transform LaserOrigin;
     public Transform LaserImpact;
+
+    public float minBlinkTime = 1.0f;
+    public float maxBlinkTime = 10.0f;
+    private float blinkTimer = 0.0f;
 
     // Start is called before the first frame update
     void Start()
     {
         distance = Vector3.Distance(Camera.main.transform.position, transform.position);
         laserLine = GetComponent<LineRenderer>();
+        blinkTimer = Random.Range(minBlinkTime, maxBlinkTime);
     }
 
     // Update is called once per frame
@@ -30,18 +37,24 @@ public class ScanComponent : MonoBehaviour
         if(Input.GetButton("Fire1"))
         {
             Fire();
-            Head.transform.GetChild(0).gameObject.SetActive(false);
-            Head.transform.GetChild(1).gameObject.SetActive(true);
+            headAnim.SetBool("isLasering", true);
             Head.transform.GetChild(2).gameObject.SetActive(true);
+            blinkTimer = Random.Range(minBlinkTime, maxBlinkTime);
         }
         else
         {
+            blinkTimer -= Time.deltaTime;   
             laserLine.enabled = false;
-
-            Head.transform.GetChild(0).gameObject.SetActive(true);
-            Head.transform.GetChild(1).gameObject.SetActive(false);
+            headAnim.SetBool("isLasering", false);
             Head.transform.GetChild(2).gameObject.SetActive(false);
             LaserImpact.gameObject.SetActive(false);
+            laserLine.positionCount = 2;
+        }
+
+        if(blinkTimer <= 0.0f)
+        {
+            headAnim.SetTrigger("blink");
+            blinkTimer = Random.Range(minBlinkTime, maxBlinkTime);
         }
     }
 
@@ -54,7 +67,13 @@ public class ScanComponent : MonoBehaviour
         mousePos.z = transform.position.z;
         laserLine.SetPosition(0, startPos);
         //Debug.DrawRay(startPos, (mousePos - startPos) * maxRange, Color.green);
-        Ray laserRay = new Ray(startPos, LaserOrigin.right);
+        Ray laserRay;
+
+        if (Head.transform.localScale.x > 0)
+             laserRay = new Ray(startPos, LaserOrigin.right);
+        else
+            laserRay = new Ray(startPos, -LaserOrigin.right);
+
         RaycastHit hit;
 
         if (Physics.Raycast(laserRay, out hit, maxRange))
@@ -75,6 +94,7 @@ public class ScanComponent : MonoBehaviour
             }
             else
             {
+                laserLine.positionCount = 2;
                 LaserImpact.position = hit.point;
                 LaserImpact.gameObject.SetActive(true);
             }
@@ -101,7 +121,7 @@ public class ScanComponent : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, maxRange))
         {
-            direction = Vector3.Reflect(LaserOrigin.right, hit.normal);
+            direction = Vector3.Reflect(direction, hit.normal);
             position = hit.point;
             laserLine.SetPosition(reflectionNumber, position);
             GameObject go = hit.collider.gameObject;
@@ -152,9 +172,35 @@ public class ScanComponent : MonoBehaviour
         Vector3 targetPos = Camera.main.WorldToScreenPoint(startPos);
         mousePos.x = mousePos.x - targetPos.x;
         mousePos.y = mousePos.y - targetPos.y;
-        Debug.DrawLine(Head.transform.position, mousePos);
-        Debug.DrawLine(startPos, mousePos, Color.red);
+        //Debug.DrawLine(Head.transform.position, mousePos);
+        //Debug.DrawLine(startPos, mousePos, Color.red);
         float angle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
         Head.transform.rotation = Quaternion.Euler(new Vector3(0, 0, (angle - 11.5f)));
+
+        print(LaserOrigin.transform.rotation.eulerAngles.z);
+        //Debug.DrawLine(LaserOrigin.transform.position, mousePos);
+
+
+        if (angle < -90.0f || angle > 90.0f)
+        {
+            Vector3 scale = Head.transform.localScale;
+            scale.x = -1.0f;
+            Head.transform.localScale = scale;
+            Vector3 angles = Head.transform.rotation.eulerAngles;
+            angles.z += 191.5f;
+            Head.transform.rotation = Quaternion.Euler(angles);
+
+            //LaserOrigin.transform.rotation = Quaternion.Euler(angles);
+        }
+        else
+        {
+            Vector3 scale = Head.transform.localScale;
+            scale.x = 1.0f;
+            Head.transform.localScale = scale;
+            Vector3 angles = LaserOrigin.transform.rotation.eulerAngles;
+            angles = LaserOrigin.transform.rotation.eulerAngles;
+
+            //LaserOrigin.transform.rotation = Quaternion.Euler(angles);
+        }
     }
 }

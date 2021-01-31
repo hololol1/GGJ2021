@@ -61,9 +61,9 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void ChangeLevel(int level)
+    public void ChangeLevel(int level, float transitionTime)
     {
         Debug.LogWarning("Change level");
-        Camera.main.GetComponent<CameraLevelSwitch>().GoToLevel(level);
+        Camera.main.GetComponent<CameraLevelSwitch>().GoToLevel(level, transitionTime);
     }
 }
