@@ -13,10 +13,17 @@ public class CharacterMovement : MonoBehaviour
     public float jumpForce = 200.0f;
     private bool grounded = false;
 
+    private AudioSource audioPlayer;
+    public AudioClip[] scannerJump;
+    public AudioClip scannerGrunt;
+    public AudioClip scannerBeamPrepare;
+    public AudioClip[] scannerPush;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        audioPlayer = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -55,6 +62,8 @@ public class CharacterMovement : MonoBehaviour
 
 		if (Input.GetButtonDown("Jump") && grounded)
         {
+            audioPlayer.clip = scannerJump[Random.Range(0, scannerJump.Length)];
+            audioPlayer.Play();
             rb.AddForce(Vector3.up * jumpForce);
         }
 
