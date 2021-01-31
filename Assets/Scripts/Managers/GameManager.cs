@@ -40,6 +40,10 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if(Input.GetButtonUp("Cancel"))
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+        }
         if(paused)
         {
             

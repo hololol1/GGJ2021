@@ -177,7 +177,7 @@ public class ScanComponent : MonoBehaviour
         float angle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
         Head.transform.rotation = Quaternion.Euler(new Vector3(0, 0, (angle - 11.5f)));
 
-        print(LaserOrigin.transform.rotation.eulerAngles.z);
+        //print(LaserOrigin.transform.rotation.eulerAngles.z);
         //Debug.DrawLine(LaserOrigin.transform.position, mousePos);
 
 
