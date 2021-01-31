@@ -67,7 +67,13 @@ public class ScanComponent : MonoBehaviour
         mousePos.z = transform.position.z;
         laserLine.SetPosition(0, startPos);
         //Debug.DrawRay(startPos, (mousePos - startPos) * maxRange, Color.green);
-        Ray laserRay = new Ray(startPos, LaserOrigin.right);
+        Ray laserRay;
+
+        if (Head.transform.localScale.x > 0)
+             laserRay = new Ray(startPos, LaserOrigin.right);
+        else
+            laserRay = new Ray(startPos, -LaserOrigin.right);
+
         RaycastHit hit;
 
         if (Physics.Raycast(laserRay, out hit, maxRange))
@@ -166,9 +172,35 @@ public class ScanComponent : MonoBehaviour
         Vector3 targetPos = Camera.main.WorldToScreenPoint(startPos);
         mousePos.x = mousePos.x - targetPos.x;
         mousePos.y = mousePos.y - targetPos.y;
-        Debug.DrawLine(Head.transform.position, mousePos);
-        Debug.DrawLine(startPos, mousePos, Color.red);
+        //Debug.DrawLine(Head.transform.position, mousePos);
+        //Debug.DrawLine(startPos, mousePos, Color.red);
         float angle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
         Head.transform.rotation = Quaternion.Euler(new Vector3(0, 0, (angle - 11.5f)));
+
+        print(LaserOrigin.transform.rotation.eulerAngles.z);
+        //Debug.DrawLine(LaserOrigin.transform.position, mousePos);
+
+
+        if (angle < -90.0f || angle > 90.0f)
+        {
+            Vector3 scale = Head.transform.localScale;
+            scale.x = -1.0f;
+            Head.transform.localScale = scale;
+            Vector3 angles = Head.transform.rotation.eulerAngles;
+            angles.z += 191.5f;
+            Head.transform.rotation = Quaternion.Euler(angles);
+
+            //LaserOrigin.transform.rotation = Quaternion.Euler(angles);
+        }
+        else
+        {
+            Vector3 scale = Head.transform.localScale;
+            scale.x = 1.0f;
+            Head.transform.localScale = scale;
+            Vector3 angles = LaserOrigin.transform.rotation.eulerAngles;
+            angles = LaserOrigin.transform.rotation.eulerAngles;
+
+            //LaserOrigin.transform.rotation = Quaternion.Euler(angles);
+        }
     }
 }
