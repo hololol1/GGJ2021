@@ -147,6 +147,8 @@ MonoBehaviour:
     m_Bits: 64
   groundPosition: {fileID: 7799561866378776384}
   jumpingParticles: {fileID: 7288472551960427984}
+  walkingParticles: {fileID: 2746720067868384144}
+  faceAnimator: {fileID: 5855226635680345964}
   moveSpeed: 3
   jumpForce: 220
   scannerJump:
@@ -439,15 +441,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7274333049482684509, guid: dcb8406739664b74782bf37ee26e70f4, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7274333049482684509, guid: dcb8406739664b74782bf37ee26e70f4, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7274333049482684509, guid: dcb8406739664b74782bf37ee26e70f4, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7274333049482684509, guid: dcb8406739664b74782bf37ee26e70f4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -586,9 +588,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7799561867642163523}
     m_Modifications:
+    - target: {fileID: 5342346029147342720, guid: ab5294a02872f9b4090bb37f87203daf, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5342346029147342721, guid: ab5294a02872f9b4090bb37f87203daf, type: 3}
       propertyPath: useRigidbodyForVelocity
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5342346029147342721, guid: ab5294a02872f9b4090bb37f87203daf, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5342346029147342721, guid: ab5294a02872f9b4090bb37f87203daf, type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 5342346029147342721, guid: ab5294a02872f9b4090bb37f87203daf, type: 3}
       propertyPath: EmissionModule.rateOverDistance.scalar
@@ -604,15 +618,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5342346029147342735, guid: ab5294a02872f9b4090bb37f87203daf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.205
+      value: -0.08
       objectReference: {fileID: 0}
     - target: {fileID: 5342346029147342735, guid: ab5294a02872f9b4090bb37f87203daf, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.684
+      value: -0.592
       objectReference: {fileID: 0}
     - target: {fileID: 5342346029147342735, guid: ab5294a02872f9b4090bb37f87203daf, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.101
+      value: -0.18
       objectReference: {fileID: 0}
     - target: {fileID: 5342346029147342735, guid: ab5294a02872f9b4090bb37f87203daf, type: 3}
       propertyPath: m_LocalRotation.w
@@ -647,6 +661,11 @@ PrefabInstance:
 --- !u!4 &2746720067868384158 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5342346029147342735, guid: ab5294a02872f9b4090bb37f87203daf, type: 3}
+  m_PrefabInstance: {fileID: 7799561867167308817}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &2746720067868384144 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5342346029147342721, guid: ab5294a02872f9b4090bb37f87203daf, type: 3}
   m_PrefabInstance: {fileID: 7799561867167308817}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7799561867811100751
