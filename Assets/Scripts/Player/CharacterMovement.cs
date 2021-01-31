@@ -45,11 +45,8 @@ public class CharacterMovement : MonoBehaviour
             if (rb.velocity.x > 0.1f || rb.velocity.x < -0.1f)
             {
                 faceAnimator.SetBool("isStruggling", true);
-                if (!audioPlayer.isPlaying)
-                {
                     audioPlayer.PlayOneShot(scannerPush[0]);
                     audioPlayer.pitch = 1 * Random.Range(0.9f, 1.2f);
-                }
             }
         }
     }
