@@ -10,7 +10,9 @@ public class Door : InteractableObject
     public Box[] boxes;
     private AudioSource[] audioPlayers;
     public AudioClip[] openCloseSounds;
-    private bool playOnce;
+    private bool isBlocked = false;
+    private bool toOpen = false;
+    private float openTime = 0.5f;
 
    
 
@@ -24,17 +26,40 @@ public class Door : InteractableObject
     // Update is called once per frame
     void Update()
     {
-
+        if (toOpen && openTime > 0.0f)
+        {
+            openTime -= Time.deltaTime;
+            Open();
+            return;
+        }
+        else
+        {
+            toOpen = false;
+            openTime = 0.5f;
+        }
         for (int i = 0; i < boxes.Length; ++i)
         {
-            if (!boxes[i].Scanned)
+            if (!boxes[i].Scanned && !isBlocked)
             {
                 Close();
                 return;
             }
         }
-
-        Open();
+        toOpen = true;
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Box"))
+        {
+            isBlocked = true;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Box"))
+        {
+            isBlocked = false;
+        }
     }
 
     private void Open()

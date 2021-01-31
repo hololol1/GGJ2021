@@ -180,9 +180,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.2
-  m_Height: 0.87
+  m_Height: 0.7
   m_Direction: 1
-  m_Center: {x: 0, y: 0.05, z: 0}
+  m_Center: {x: 0, y: -0.045, z: 0}
 --- !u!114 &7799561867642163527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -981,6 +981,10 @@ PrefabInstance:
     - target: {fileID: 2616150681507924415, guid: b646afaed93153b4ba6480cc4ab042c8, type: 3}
       propertyPath: m_SortingOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2616150681507924415, guid: b646afaed93153b4ba6480cc4ab042c8, type: 3}
+      propertyPath: m_RenderingLayerMask
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5243265228601994815, guid: b646afaed93153b4ba6480cc4ab042c8, type: 3}
       propertyPath: m_RootOrder
