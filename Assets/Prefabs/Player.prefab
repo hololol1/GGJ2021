@@ -339,6 +339,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   laserSound: {fileID: 8300000, guid: 3276ddbbf64564145b7248748882f202, type: 3}
+  laserMirrorSound: {fileID: 8300000, guid: 9dddf192a8e5b9743950d996837c4102, type: 3}
   maxRange: 20
   maxReflectionCount: 5
   Head: {fileID: 3131796656402290872}
@@ -550,7 +551,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.19248782, y: 0.6477291, z: 0.3398893}
+  m_Size: {x: 0.15, y: 0.35, z: 0.3}
   m_Center: {x: -0.29, y: 0.005287552, z: 0.02435959}
 --- !u!65 &1631056650
 BoxCollider:
@@ -563,7 +564,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.19248782, y: 0.6477291, z: 0.3398893}
+  m_Size: {x: 0.15, y: 0.35, z: 0.3}
   m_Center: {x: 0.24338895, y: 0.005287552, z: 0.02435959}
 --- !u!1001 &132368510881207683
 PrefabInstance:
