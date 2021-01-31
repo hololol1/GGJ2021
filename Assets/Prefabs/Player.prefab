@@ -208,6 +208,13 @@ MonoBehaviour:
   scannerJump:
   - {fileID: 8300000, guid: d8801ee74970a56419f861cefc81b7cc, type: 3}
   - {fileID: 8300000, guid: 54dfffed19fe8974fb20e8466a789184, type: 3}
+  cardboardHits:
+  - {fileID: 8300000, guid: 527aa201151208a4283792aca470bc9a, type: 3}
+  - {fileID: 8300000, guid: bb41e85be9e617944a2e7f53b2c95a5b, type: 3}
+  - {fileID: 8300000, guid: 6a5e47090cc61764aaf30b54fd5be893, type: 3}
+  - {fileID: 8300000, guid: 7da46e776b1727145aebfdb5448cdec5, type: 3}
+  - {fileID: 8300000, guid: 14829fefe4ac329438debe3cc30cdafc, type: 3}
+  - {fileID: 8300000, guid: 237164b894485a646a31aa339d9e0d7b, type: 3}
   scannerGrunt: {fileID: 8300000, guid: c55e8ee017bb0b64195a7b3dbb1bdd83, type: 3}
   scannerBeamPrepare: {fileID: 8300000, guid: dd3a79499bad19c41943970529e3c764, type: 3}
   scannerPush:
