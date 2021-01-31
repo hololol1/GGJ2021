@@ -42,8 +42,10 @@ public class CharacterMovement : MonoBehaviour
         if (rb.SweepTest(direction, out hit, 0.2f))
         {
 			if (hit.collider.gameObject.GetComponent<MovableObject>() != null || hit.collider.gameObject.GetComponent<LevelTrigger>() != null || hit.transform.position.y < groundPosition.position.y)
+			{
 				rb.velocity = new Vector3(direction.x * moveSpeed, rb.velocity.y, 0);
-					//transform.position = transform.position + (direction * moveSpeed * Time.deltaTime);
+				//transform.position = transform.position + (direction * moveSpeed * Time.deltaTime);
+			}
 		}
         else
         {
@@ -51,7 +53,7 @@ public class CharacterMovement : MonoBehaviour
 			//transform.position = transform.position + (direction * moveSpeed * Time.deltaTime);
 		}
 
-        if (Input.GetButtonDown("Jump") && grounded)
+		if (Input.GetButtonDown("Jump") && grounded)
         {
             rb.AddForce(Vector3.up * jumpForce);
         }
