@@ -32,7 +32,28 @@ public class CharacterMovement : MonoBehaviour
         audioPlayer = GetComponent<AudioSource>();
         jumpingParticles.Stop();
     }
-
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("Box")){
+            if (rb.velocity.x > 0.1f || rb.velocity.x < -0.1f)
+            {
+                faceAnimator.SetBool("isStruggling", true);
+                if (!audioPlayer.isPlaying)
+                {
+                    audioPlayer.PlayOneShot(scannerPush[0]);
+                    audioPlayer.pitch = 1 * Random.Range(0.9f, 1.2f);
+                }
+            }
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Box"))
+        {
+            faceAnimator.SetBool("isStruggling", false);
+            audioPlayer.pitch = 1;
+        }
+    }
     // Update is called once per frame
     void Update()
     {
@@ -45,7 +66,7 @@ public class CharacterMovement : MonoBehaviour
         Vector3 direction = Vector3.zero;
         float d = Input.GetAxisRaw("Horizontal");
   
-
+        
         if (d < 0.0f)
         {
             direction = Vector3.left;
@@ -63,14 +84,14 @@ public class CharacterMovement : MonoBehaviour
 			{
 				rb.velocity = new Vector3(direction.x * moveSpeed, rb.velocity.y, 0);
                 //transform.position = transform.position + (direction * moveSpeed * Time.deltaTime);
-                faceAnimator.SetBool("isStruggling", true);
-			}
+                
+            }
 		}
         else
         {
 			rb.velocity = new Vector3(direction.x * moveSpeed, rb.velocity.y, 0);
             //transform.position = transform.position + (direction * moveSpeed * Time.deltaTime);
-            faceAnimator.SetBool("isStruggling", false);
+            
         }
 
 		if (Input.GetButtonDown("Jump") && grounded)
