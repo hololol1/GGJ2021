@@ -8,7 +8,7 @@ public class Door : InteractableObject
     private Animator anim;
     public bool open = false;
     public Box[] boxes;
-    private AudioSource audioPlayer;
+    private AudioSource[] audioPlayers;
     public AudioClip[] openCloseSounds;
     private bool playOnce;
 
@@ -18,7 +18,7 @@ public class Door : InteractableObject
     void Start()
     {
         anim = GetComponent<Animator>();
-        audioPlayer = GetComponent<AudioSource>();
+        audioPlayers = GetComponents<AudioSource>();
     }
 
     // Update is called once per frame
@@ -44,8 +44,9 @@ public class Door : InteractableObject
         anim.SetBool("open", open);
         if (prevValue != open)
         {
-            audioPlayer.Stop();
-            audioPlayer.PlayOneShot(openCloseSounds[0]);
+            audioPlayers[0].Stop();
+            audioPlayers[0].PlayOneShot(openCloseSounds[0]);
+            audioPlayers[1].Play();
         }
     }
 
@@ -56,8 +57,9 @@ public class Door : InteractableObject
         anim.SetBool("open", open);
         if (prevValue != open) 
         {
-            audioPlayer.Stop();
-            audioPlayer.PlayOneShot(openCloseSounds[1]); 
+            audioPlayers[0].Stop();
+            audioPlayers[0].PlayOneShot(openCloseSounds[1]); 
+            
         }
     }
 
