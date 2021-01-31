@@ -22,6 +22,7 @@ public class CharacterMovement : MonoBehaviour
 
     private AudioSource audioPlayer;
     public AudioClip[] scannerJump;
+    public AudioClip[] cardboardHits;
     public AudioClip scannerGrunt;
     public AudioClip scannerBeamPrepare;
     public AudioClip[] scannerPush;
@@ -32,6 +33,11 @@ public class CharacterMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         audioPlayer = GetComponent<AudioSource>();
         jumpingParticles.Stop();
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        audioPlayer.PlayOneShot(cardboardHits[Random.Range(0, cardboardHits.Length)]);
+        audioPlayer.pitch = Random.Range(0.8f, 1.2f);
     }
     private void OnTriggerEnter(Collider other)
     {
