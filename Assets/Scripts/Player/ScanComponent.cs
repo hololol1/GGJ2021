@@ -34,7 +34,7 @@ public class ScanComponent : MonoBehaviour
     {
         UpdateHeadPosition();
 
-        if(Input.GetButton("Fire1"))
+        if(Input.GetButton("Fire1") || Input.GetButton("Fire2"))
         {
             Fire();
             headAnim.SetBool("isLasering", true);

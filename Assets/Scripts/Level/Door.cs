@@ -7,13 +7,18 @@ public class Door : InteractableObject
 {
     private Animator anim;
     public bool open = false;
-
     public Box[] boxes;
+    private AudioSource audioPlayer;
+    public AudioClip[] openCloseSounds;
+    private bool playOnce;
+
+   
 
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
+        audioPlayer = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -34,14 +39,26 @@ public class Door : InteractableObject
 
     private void Open()
     {
+        bool prevValue = open;
         open = true;
         anim.SetBool("open", open);
+        if (prevValue != open)
+        {
+            audioPlayer.Stop();
+            audioPlayer.PlayOneShot(openCloseSounds[0]);
+        }
     }
 
     private void Close()
     {
+        bool prevValue = open;
         open = false;
         anim.SetBool("open", open);
+        if (prevValue != open) 
+        {
+            audioPlayer.Stop();
+            audioPlayer.PlayOneShot(openCloseSounds[1]); 
+        }
     }
 
     public override void Interact(GameObject interactor)
