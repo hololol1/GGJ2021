@@ -11,6 +11,7 @@ public class Door : InteractableObject
     private AudioSource[] audioPlayers;
     public AudioClip[] openCloseSounds;
     private bool playOnce;
+    private bool isBlocked = false;
 
    
 
@@ -27,7 +28,7 @@ public class Door : InteractableObject
 
         for (int i = 0; i < boxes.Length; ++i)
         {
-            if (!boxes[i].Scanned)
+            if (!boxes[i].Scanned && !isBlocked)
             {
                 Close();
                 return;
@@ -35,6 +36,20 @@ public class Door : InteractableObject
         }
 
         Open();
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Box"))
+        {
+            isBlocked = true;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Box"))
+        {
+            isBlocked = false;
+        }
     }
 
     private void Open()
