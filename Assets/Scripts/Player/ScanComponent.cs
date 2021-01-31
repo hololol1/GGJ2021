@@ -9,7 +9,9 @@ public class ScanComponent : MonoBehaviour
     private float distance = 5.0f;
     private AudioSource[] audioPlayers;
     public AudioClip laserSound;
+    public AudioClip laserMirrorSound;
     private bool oneShotSound = false;
+    private bool oneShotSound2 = false;
 
     public float maxRange = 20.0f;
     public int maxReflectionCount = 5;
@@ -56,6 +58,7 @@ public class ScanComponent : MonoBehaviour
         {
             audioPlayers[1].enabled = false;
             oneShotSound = false;
+            oneShotSound2 = false;
             blinkTimer -= Time.deltaTime;   
             laserLine.enabled = false;
             headAnim.SetBool("isLasering", false);
@@ -107,6 +110,7 @@ public class ScanComponent : MonoBehaviour
             }
             else
             {
+                oneShotSound2 = false;
                 laserLine.positionCount = 2;
                 LaserImpact.position = hit.point;
                 LaserImpact.transform.rotation = Quaternion.LookRotation(Vector3.forward, hit.normal); 
@@ -154,10 +158,18 @@ public class ScanComponent : MonoBehaviour
                 LaserImpact.position = hit.point;
                 LaserImpact.transform.rotation = Quaternion.LookRotation(Vector3.forward, hit.normal);
                 LaserImpact.gameObject.SetActive(true);
+                bool prevValue = oneShotSound2;
+                if (!prevValue)
+                {
+                    audioPlayers[0].PlayOneShot(laserMirrorSound);
+                }
+                oneShotSound2 = true;
+                
             }
         }
         else
         {
+            oneShotSound2 = false;
             position += direction * maxRange;
             laserLine.SetPosition(reflectionNumber, position);
             LaserImpact.gameObject.SetActive(false);
